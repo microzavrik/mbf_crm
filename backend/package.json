@@ -12,5 +12,9 @@
   "devDependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "@types/pg": "^8.11.6",
+    "pg": "^8.12.0"
   }
 }
