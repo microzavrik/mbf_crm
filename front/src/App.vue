@@ -1,27 +1,19 @@
+<script setup>
+  import { RouterLink, RouterView } from 'vue-router';
+
+</script>
+
 <template>
-  <MainPage test="test"/>
+  <div class="view">
+    <RouterView/>
+  </div>
+  <div class="buttons">
+    <RouterLink to="/">Home</RouterLink>
+    <RouterLink to="/login">Login</RouterLink>
+  </div>
 </template>
 
 <style scoped>
 
 </style>
 
-<script>
-import MainPage from "./components/pages/MainPage.vue";
-
-export default{
-  components:{ MainPage },
-  data(){
-    return{
-
-    }
-    },
-  methods:{
-    test(){
-      console.log(1)
-
-
-    }
-  }
-}
-</script>
