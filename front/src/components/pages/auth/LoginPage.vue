@@ -1,12 +1,22 @@
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
+import axios from 'axios';
 
-const email = ref('')
+const username = ref('')
 const password = ref('')
 
-const handleLogin = () => {
-  console.log('Email:', email.value)
+const handleLogin = (e) => {
+  const form = new FormData(e.target);
+  const formProps = Object.fromEntries(form.entries());
+  
+  console.log('Email:', username.value)
   console.log('Password:', password.value)
+
+  console.log(formProps)
+  axios.post('/api/auth/login', formProps)
+  .then(res => {
+    console.log(res.data);
+  })
 }
 </script>
 
@@ -16,12 +26,12 @@ const handleLogin = () => {
       <h2>Login</h2>
       <form @submit.prevent="handleLogin">
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" v-model="email" placeholder="E-Mail" required>
+          <label for="username">Username</label>
+          <input type="username" id="username" name="username" v-model="username" placeholder="Username" required>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" id="password" v-model="password" placeholder="Password" required>
+          <input type="password" id="password" name="password" v-model="password" placeholder="Password" required>
         </div>
         <button type="submit" class="submit-btn">Login</button>
       </form>
