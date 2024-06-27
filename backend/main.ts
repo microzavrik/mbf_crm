@@ -6,9 +6,9 @@ import companyRouter from "./routes/companyRouter";
 const app = express();
 app.use(express.json());
 
-app.use('/auth', authRouter);
-app.use("/empl", employeeRouter);
-app.use("/company", companyRouter);
+app.use('/api/auth', authRouter);
+app.use("/api/empl", employeeRouter);
+app.use("/api/company", companyRouter);
 
 app.listen(3000, () => {
     console.log('⚡️ [server]: Server is running on port 3000');
