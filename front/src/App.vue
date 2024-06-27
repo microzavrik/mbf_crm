@@ -1,5 +1,5 @@
 <template>
-<HelloPage :test="test" />
+<HelloPage :test="test" :count="count"/>
 </template>
 
 <style scoped>
@@ -8,12 +8,13 @@
 
 <script>
 import Auth from "./components/Auth.vue";
-import HelloPage from './components/helloPage.vue'
+import HelloPage from './components/HelloPage.vue'
 
 export default{
   components:{ Auth, HelloPage },
   data(){
     return{
+      
     }
     },
   methods:{
