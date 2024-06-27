@@ -1,23 +1,11 @@
-import { User } from './models/user'; 
-import { client, addUser, createUser, passwordUserHash, deleteUser, getAllUsers, authenticateUser } from './models/userRepository';
+import express from 'express';
+import authRouter from './routes/authRouter';
 
-async function main() {
-  try {
-      let newUser = await createUser("444", "bebra@gmail.com");
-      newUser = await passwordUserHash(newUser, "123123");
-      await addUser(newUser);
-      console.log(newUser);
+const app = express();
+app.use(express.json());
 
-      const users = await getAllUsers();
-      console.log("bebra");
-      console.log(users);
-      const resultUser = await authenticateUser("444", "123123");
-      console.log(resultUser);
-  } catch (error) {
-      console.error('Error:', error);
-  } finally {
-      await client.end();
-  }
-}
+app.use('/auth', authRouter);
 
-main();
+app.listen(3000, () => {
+    console.log('⚡️[server]: Server is running on port 3000');
+});
