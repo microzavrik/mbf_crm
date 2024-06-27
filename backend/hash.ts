@@ -1,13 +1,13 @@
-import crypto from 'crypto'
+import crypto from 'crypto';
 
 interface HashResult {
-    hash: string;
-    salt: string;
-};
+  hash: string;
+}
 
-export async function hashPassword(password: string): Promise<HashResult> {
-    const salt = crypto.randomBytes(16).toString("hex");
-    const hash = crypto.pbkdf2Sync(password, salt, 1000, 64, 'sha512').toString("hex");
+export function hashPassword(password: string): HashResult {
+  const hash = crypto.createHash('sha512')
+    .update(password)
+    .digest('hex');
 
-    return { hash, salt };
+  return { hash };
 }
