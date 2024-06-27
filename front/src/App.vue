@@ -1,5 +1,5 @@
 <template>
-<HelloPage :test="test"/>
+  <MainPage test="test"/>
 </template>
 
 <style scoped>
@@ -7,11 +7,10 @@
 </style>
 
 <script>
-import Auth from "./components/Auth.vue";
-import HelloPage from './components/HelloPage.vue'
+import MainPage from "./components/pages/MainPage.vue";
 
 export default{
-  components:{ Auth, HelloPage },
+  components:{ MainPage },
   data(){
     return{
 
@@ -19,7 +18,9 @@ export default{
     },
   methods:{
     test(){
-        console.log(1)
+      console.log(1)
+
+
     }
   }
 }

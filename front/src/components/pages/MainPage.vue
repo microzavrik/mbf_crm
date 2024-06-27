@@ -1,5 +1,4 @@
 <template>
-    
     <div>
         <h1>crm system by usmanov`s team</h1>
         <button @click="test">Login</button>
