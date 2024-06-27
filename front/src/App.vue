@@ -1,5 +1,5 @@
 <template>
-<HelloPage :test="test" :count="count"/>
+<HelloPage :test="test"/>
 </template>
 
 <style scoped>
@@ -14,7 +14,7 @@ export default{
   components:{ Auth, HelloPage },
   data(){
     return{
-      
+
     }
     },
   methods:{
