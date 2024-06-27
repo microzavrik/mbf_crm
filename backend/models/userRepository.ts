@@ -1,17 +1,8 @@
-import { Client, Query, QueryResult } from 'pg';
+import { QueryResult } from 'pg';
 import { hashPassword } from '../hash';
 import { User } from './user';
 import { generateRandomString } from '../utils/generateRandomString';
-
-export const client = new Client({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'mbf_crm',
-  password: '123123',
-  port: 5432,
-});
-
-client.connect();
+import { client } from '../database/db';
 
 export async function registerUser(username: string, email: string, password: string) : Promise<User | null> {
     try {
