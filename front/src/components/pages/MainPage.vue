@@ -10,13 +10,5 @@
 
 </style>
 
-<script>
-export default{
-    props:{
-        test:{
-            type: Function,
-            required: true
-        },
-    }
-  }
+<script setup>
 </script>
