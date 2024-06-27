@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { registerUser, authenticateUser } from "../models/userRepository";
+import { registerUser, authenticateUser, getAllUsers } from "../models/userRepository";
 
 const router = express.Router();
 
@@ -36,5 +36,15 @@ router.post("/login", async(req: Request, res: Response) => {
         res.status(500).json({message: "Internal server error"});
     }
 });
+
+router.get("/users", async (req: Request, res: Response) => {
+    try {
+      const users = await getAllUsers();
+      res.json(users);
+    } catch (error) {
+      console.error("Error getting all users:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
 export default router;
