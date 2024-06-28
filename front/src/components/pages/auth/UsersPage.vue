@@ -25,44 +25,49 @@ export default {
   },
   methods: {
     async fetchUsers() {
+  try {
+    // Получаем JWT токен и объект пользователя из localStorage
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('userid');
+    
+    console.log("Token: ", token)
+    console.log("User id: ", user);
+
+    // Создаем конфигурацию запроса с заголовком Authorization и объектом пользователя
+    const config = {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      data: user
+    };
+
+    // Делаем запрос с конфигурацией
+    const response = await axiosInstance.get('/api/auth/users', config);
+    this.users = response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401 && !this.isRefreshing) {
+      this.isRefreshing = true;
       try {
-        // Получаем JWT токен из localStorage
-        const token = localStorage.getItem('token')
-
-        // Создаем конфигурацию запроса с заголовком Authorization
-        const config = {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        }
-
-        // Делаем запрос с конфигурацией
-        const response = await axiosInstance.get('/api/auth/users', config)
-        this.users = response.data
-      } catch (error) {
-        if (error.response && error.response.status === 401 && !this.isRefreshing) {
-          // Если получен ответ 401 Unauthorized и токен не обновляется в данный момент
-          this.isRefreshing = true
-          try {
-            // Запрашиваем обновление токена
-            const refreshResponse = await axiosInstance.post('/api/security/refresh-token')
-            const newToken = refreshResponse.data.token
-            localStorage.setItem('token', newToken)
-            // Повторяем запрос с новым токеном
-            const retryResponse = await axiosInstance.get('/api/auth/users', config)
-            this.users = retryResponse.data
-          } catch (refreshError) {
-            console.error('Error refreshing token:', refreshError)
-            // Перенаправляем пользователя на страницу входа
-            this.$router.push('/login')
-          } finally {
-            this.isRefreshing = false
-          }
-        } else {
-          console.error('Error fetching users:', error)
-        }
+        // Запрашиваем обновление токена
+        const refreshResponse = await axiosInstance.post('/api/security/refresh-token');
+        const newToken = refreshResponse.data.token;
+        localStorage.setItem('token', newToken);
+        // Повторяем запрос с новым токеном
+        const retryResponse = await axiosInstance.get('/api/auth/users', config);
+        this.users = retryResponse.data;
+      } catch (refreshError) {
+        console.error('Error refreshing token:', refreshError);
+        // Перенаправляем пользователя на страницу входа
+        this.$router.push('/login');
+      } finally {
+        this.isRefreshing = false;
       }
+    } else {
+      console.error('Error fetching users:', error);
     }
   }
+    }
+    }
 }
   </script>

@@ -40,6 +40,7 @@ router.post("/login", async (req: Request, res: Response) => {
 
 router.get("/users", verifyToken, async (req: RequestWithUser, res: Response) => {
     try {
+      console.log(req.body);
       const userId = req.user?.userId;
       console.log("User ID:", userId);
   
