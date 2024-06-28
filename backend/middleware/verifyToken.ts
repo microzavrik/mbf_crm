@@ -16,14 +16,22 @@ export function verifyToken(
   if (!token) {
     return res.status(401).json({ message: "No token provided" });
   }
-  console.log(token);
+
   try {
-    // Верифицируем токен
+    console.log(token);
     const decoded = jwt.verify(token, config.jwtSecret);
     req.user = decoded;
-
     next();
   } catch (err) {
-    return res.status(403).json({ message: "Failed to authenticate token" });
+    console.error("Error verifying token:", err);
+    if (err instanceof jwt.JsonWebTokenError) {
+      if (err.name === 'TokenExpiredError') {
+        return res.status(401).json({ message: 'Token expired' });
+      } else {
+        return res.status(403).json({ message: "Failed to authenticate token" });
+      }
+    } else {
+      return res.status(500).json({ message: "Internal server error" });
+    }
   }
 }

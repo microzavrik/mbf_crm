@@ -20,30 +20,31 @@ export async function registerUser(username: string, email: string, password: st
 }
 
 export async function authenticateUser(username: string, password: string): Promise<{ user: User; token: string } | null> {
-    try {
-        const query = 'SELECT * FROM users WHERE username = $1';
-        const result: QueryResult<User> = await client.query(query, [username]);
+  try {
+    const query = 'SELECT * FROM users WHERE username = $1';
+    const result: QueryResult<User> = await client.query(query, [username]);
 
-        if (result.rowCount === 1) {
-            const user = result.rows[0];
-            const hashedPassword = await hashPassword(user.password_salt + password);
+    if (result.rowCount === 1) {
+      const user = result.rows[0];
+      const hashedPassword = await hashPassword(user.password_salt + password);
 
-            if (hashedPassword.hash === user.password_hash) {
-                const token = jwt.sign({ userId: user.id }, config.jwtSecret, { expiresIn: '1h' });
-                return { user, token };
-            } else {
-                console.error('Invalid password');
-                return null;
-            }
-        } else {
-            console.error('User not found');
-            return null;
-        }
-    } catch (error) {
-        console.error('Error authenticating user:', error);
-        throw error;
+      if (hashedPassword.hash === user.password_hash) {
+        // Создаем JWT токен, включая userId в полезную нагрузку
+        const token = jwt.sign({ userId: user.id }, config.jwtSecret, { expiresIn: '1h' });
+        return { user, token };
+      } else {
+        console.error('Invalid password');
+        return null;
+      }
+    } else {
+      console.error('User not found');
+      return null;
     }
-}
+  } catch (error) {
+    console.error('Error authenticating user:', error);
+    throw error;
+  }
+};
 
 export async function createUser(username: string, email: string) : Promise<User> {
     try {
@@ -111,5 +112,22 @@ export async function getAllUsers() : Promise<User[]> {
     } catch (error) {
         console.error('Error getting all users:', error);
         throw error;
+    }
+};
+
+export async function getUserById(id: number): Promise<User | null> {
+    try {
+      const query = 'SELECT * FROM users WHERE id = $1';
+      const result: QueryResult<User> = await client.query(query, [id]);
+  
+      if (result.rowCount === 1) {
+        return result.rows[0];
+      } else {
+        return null;
+      }
+    } 
+    catch (error) {
+      console.error('Error getting user by id:', error);
+      throw error;
     }
 };

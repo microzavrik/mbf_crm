@@ -14,17 +14,14 @@ const handleLogin = (e) => {
   axios.post('/api/auth/login', formProps)
     .then(response => {
       const { user, token } = response.data;
-
-      // Store the JWT token in local storage
+      // Сохраняем пользователя и токен в localStorage
+      localStorage.removeItem('token');
+      localStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('token', token);
-      
-      console.log("Token: ", localStorage.getItem("token"));
-      console.log('Logged in user:', user);
     })
     .catch(error => {
       console.error('Error logging in:', error);
     });
-
 };
 
 </script>
