@@ -20,5 +20,7 @@
     .avatar{
         border-radius: 100px;
         height: 200px;
+        aspect-ratio: 1/1;
     }
+    
 </style>
