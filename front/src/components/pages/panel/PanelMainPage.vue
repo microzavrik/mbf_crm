@@ -4,7 +4,15 @@
 
 <template>
     <div>
-        <img src="../../../assets/video.gif" class="avatar">
+        <div>
+            <img src="../../../assets/video.gif" class="avatar">
+        </div>
+        <div>Name Surname</div>
+        <div>
+            <button>Orders</button>
+            <button>Users</button>
+            <button>Products</button>
+        </div>
     </div>
 </template>
 
@@ -12,6 +20,7 @@
     .avatar{
         border-radius: 100px;
         height: 200px;
-        border: 10px purple;
+        aspect-ratio: 1/1;
     }
+    
 </style>
