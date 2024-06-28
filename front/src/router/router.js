@@ -26,6 +26,10 @@ const routes = [
     {
         path: '/users',
         component: UsersPage
+    },
+    {
+        path: '/panel',
+        component: PanelMainPage
     }
 ]
 
