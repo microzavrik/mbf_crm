@@ -18,6 +18,14 @@ const routes = [
     {
         path: '/register',
         component: RegisterPage
+    },
+    {
+        path: '/employee_register',
+        component: EmployeeRegistrations
+    },
+    {
+        path: '/users',
+        component: UsersPage
     }
 ]
 
