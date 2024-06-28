@@ -8,6 +8,7 @@ const password = ref('')
 
 const handleLogin = (e) => {
   e.preventDefault();
+  console.log("нажата кнопка login");
   const form = new FormData(e.target);
   const formProps = Object.fromEntries(form.entries());
 
@@ -15,8 +16,8 @@ const handleLogin = (e) => {
     .then(response => {
       const { user, token } = response.data;
       // Сохраняем пользователя и токен в localStorage
-      localStorage.removeItem('token');
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('userid', user.id);
+      console.log(user);
       localStorage.setItem('token', token);
     })
     .catch(error => {
@@ -39,7 +40,7 @@ const handleLogin = (e) => {
           <label for="password">Password</label>
           <input type="password" id="password" name="password" v-model="password" placeholder="Password" required>
         </div>
-        <RouterLink to="/panel" class="submit-btn">Login</RouterLink>
+        <button type="submit" class="submit-btn">Login</button >
       </form>
       <div class="register-link">
         Don't have an account? <a href="/register">Register</a>

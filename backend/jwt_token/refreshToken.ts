@@ -13,8 +13,8 @@ export async function refreshToken(req: Request, res: Response) {
       let decoded: JwtPayload;
       try {
         decoded = jwt.verify(token, config.jwtSecret) as JwtPayload;
-        const userId = decoded.userId;
-        console.log("UserId: ", userId);
+        console.log("UserId: ", decoded);
+        const userId = decoded.id;
   
         // Получаем пользователя по userId
         const user = await getUserById(userId);
