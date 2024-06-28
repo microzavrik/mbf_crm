@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { RouterLink, RouterView } from 'vue-router';
 
 const username = ref('')
 const password = ref('')
@@ -23,6 +24,7 @@ const handleLogin = (e) => {
     .catch(error => {
       console.error('Error logging in:', error);
     });
+
 };
 
 </script>
@@ -40,7 +42,7 @@ const handleLogin = (e) => {
           <label for="password">Password</label>
           <input type="password" id="password" name="password" v-model="password" placeholder="Password" required>
         </div>
-        <button type="submit" class="submit-btn">Login</button>
+        <RouterLink to="/panel" class="submit-btn">Login</RouterLink>
       </form>
       <div class="register-link">
         Don't have an account? <a href="/register">Register</a>
