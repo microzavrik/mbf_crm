@@ -1,7 +1,10 @@
 import express, { Request, Response } from "express";
 import { registerUser, authenticateUser, getAllUsers } from "../models/userRepository";
+import { verifyToken } from "../middleware/verifyToken";
+import { RequestWithUser } from "../types/types";
 
 const router = express.Router();
+
 
 router.post("/register", async(req: Request, res: Response) => {
     try {
@@ -35,14 +38,17 @@ router.post("/login", async (req: Request, res: Response) => {
     }
 });
 
-router.get("/users", async (req: Request, res: Response) => {
+router.get("/users", verifyToken, async (req: RequestWithUser, res: Response) => {
     try {
+      const userId = req.user?.userId;
+      console.log("User ID:", userId);
+  
       const users = await getAllUsers();
       res.json(users);
     } catch (error) {
       console.error("Error getting all users:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  });
+});
 
 export default router;
