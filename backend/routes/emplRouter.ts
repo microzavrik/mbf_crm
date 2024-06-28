@@ -13,6 +13,7 @@ const router = express.Router();
 
 router.post("/employees", async (req: Request, res: Response) => {
     try {
+        console.log(req.body);
         const { full_name, company, position } = req.body;
         const newEmployee = await createEmplyoee({full_name, company, position});
         res.status(201).json(newEmployee);

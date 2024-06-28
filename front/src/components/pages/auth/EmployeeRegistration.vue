@@ -4,37 +4,37 @@
       <h2>Employee Registration</h2>
       <div class="user-type-buttons">
         <button
-          :class="{ 'active': userType === 'employee' }"
-          @click="userType = 'employee'"
+          :class="{ 'active': position === 'employee' }"
+          @click="position = 'employee'"
         >
           Employee
         </button>
         <button
-          :class="{ 'active': userType === 'manager' }"
-          @click="userType = 'manager'"
+          :class="{ 'active': position === 'manager' }"
+          @click="position = 'manager'"
         >
           Manager
         </button>
       </div>
 
       <form @submit.prevent="submitForm" class="registration-form">
-        <div class="form-group" v-if="userType === 'employee'">
+        <div class="form-group" v-if="position === 'employee'">
           <label for="full-name">Full Name</label>
-          <input type="text" id="full-name" v-model="fullName" required />
+          <input type="text" id="full-name" v-model="full_name" required />
         </div>
-        <div class="form-group" v-if="userType === 'employee'">
+        <div class="form-group" v-if="position === 'employee'">
           <label for="company">Company</label>
           <input type="text" id="company" v-model="company" required />
         </div>
-        <div class="form-group" v-if="userType === 'manager'">
+        <div class="form-group" v-if="position === 'manager'">
           <label for="surname">Surname</label>
           <input type="text" id="surname" v-model="surname" required />
         </div>
-        <div class="form-group" v-if="userType === 'manager'">
+        <div class="form-group" v-if="position === 'manager'">
           <label for="company-name">Company Name</label>
           <input type="text" id="company-name" v-model="companyName" required />
         </div>
-        <div class="form-group" v-if="userType === 'manager'">
+        <div class="form-group" v-if="position === 'manager'">
           <label for="activity-type">Type of Activity</label>
           <select id="activity-type" v-model="activityType" required>
             <option value="" disabled selected>Select activity type</option>
@@ -44,7 +44,7 @@
             <option value="agriculture">Agriculture</option>
           </select>
         </div>
-        <div class="form-group" v-if="userType === 'manager'">
+        <div class="form-group" v-if="position === 'manager'">
           <label for="staff-count">Approximate Staff Count</label>
           <select id="staff-count" v-model="staffCount" required>
             <option value="" disabled selected>Select staff count</option>
@@ -64,12 +64,14 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'EmployeeRegistration',
   data() {
     return {
-      userType: 'employee',
-      fullName: '',
+      position: 'employee',
+      full_name: '',
       company: '',
       surname: '',
       companyName: '',
@@ -79,16 +81,25 @@ export default {
   },
   methods: {
     submitForm() {
-      // Handle form submission logic here
-      console.log('Form submitted:', {
-        userType: this.userType,
-        fullName: this.fullName,
+      const formData = {
+        position: this.position,
+        full_name: this.full_name,
         company: this.company,
         surname: this.surname,
         companyName: this.companyName,
         activityType: this.activityType,
         staffCount: this.staffCount
-      });
+      };
+
+      axios.post('/api/empl/employees', formData)
+        .then(response => {
+          console.log('Form submitted successfully:', response.data);
+          // Дополнительная логика после успешной отправки формы
+        })
+        .catch(error => {
+          console.error('Error submitting form:', error);
+          // Обработка ошибок при отправке формы
+        });
     }
   }
 }
