@@ -6,18 +6,25 @@ const username = ref('')
 const password = ref('')
 
 const handleLogin = (e) => {
+  e.preventDefault();
   const form = new FormData(e.target);
   const formProps = Object.fromEntries(form.entries());
-  
-  console.log('Email:', username.value)
-  console.log('Password:', password.value)
 
-  console.log(formProps)
   axios.post('/api/auth/login', formProps)
-  .then(res => {
-    console.log(res.data);
-  })
-}
+    .then(response => {
+      const { user, token } = response.data;
+
+      // Store the JWT token in local storage
+      localStorage.setItem('token', token);
+      
+      console.log("Token: ", localStorage.getItem("token"));
+      console.log('Logged in user:', user);
+    })
+    .catch(error => {
+      console.error('Error logging in:', error);
+    });
+};
+
 </script>
 
 <template>

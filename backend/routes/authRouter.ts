@@ -20,20 +20,18 @@ router.post("/register", async(req: Request, res: Response) => {
     }
 });
 
-router.post("/login", async(req: Request, res: Response) => {
+router.post("/login", async (req: Request, res: Response) => {
     try {
         const { username, password } = req.body;
-        const user = await authenticateUser(username, password);
-        if(user) {
-            res.status(200).json({message: "Login sucessful", user});
-        } 
-        else {
-            res.status(401).json({message: "Invalid username or password"});
+        const result = await authenticateUser(username, password);
+        if (result?.user) {
+            res.status(200).json({ message: "Login successful", user: result.user, token: result.token });
+        } else {
+            res.status(401).json({ message: "Invalid username or password" });
         }
-    }
-    catch(error) {
+    } catch (error) {
         console.error("Error authenticating user: ", error);
-        res.status(500).json({message: "Internal server error"});
+        res.status(500).json({ message: "Internal server error" });
     }
 });
 

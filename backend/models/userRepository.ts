@@ -3,6 +3,8 @@ import { hashPassword } from '../hash';
 import { User } from './user';
 import { generateRandomString } from '../utils/generateRandomString';
 import { client } from '../database/db';
+import jwt from "jsonwebtoken";
+import { config } from "../config";
 
 export async function registerUser(username: string, email: string, password: string) : Promise<User | null> {
     try {
@@ -17,7 +19,7 @@ export async function registerUser(username: string, email: string, password: st
     }
 }
 
-export async function authenticateUser(username: string, password: string): Promise<User | null> {
+export async function authenticateUser(username: string, password: string): Promise<{ user: User; token: string } | null> {
     try {
         const query = 'SELECT * FROM users WHERE username = $1';
         const result: QueryResult<User> = await client.query(query, [username]);
@@ -27,18 +29,17 @@ export async function authenticateUser(username: string, password: string): Prom
             const hashedPassword = await hashPassword(user.password_salt + password);
 
             if (hashedPassword.hash === user.password_hash) {
-                return user;
+                const token = jwt.sign({ userId: user.id }, config.jwtSecret, { expiresIn: '1h' });
+                return { user, token };
             } else {
                 console.error('Invalid password');
                 return null;
             }
-        } 
-        else {
+        } else {
             console.error('User not found');
             return null;
         }
-    } 
-    catch (error) {
+    } catch (error) {
         console.error('Error authenticating user:', error);
         throw error;
     }
