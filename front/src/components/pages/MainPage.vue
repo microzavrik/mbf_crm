@@ -8,7 +8,7 @@ import { RouterLink, RouterView } from 'vue-router';
       <h2>Welcome to MBF CRM</h2>
       <div class="content">
         <p>
-            Our team leader Artem Usmanov created this for you. How Steve Jobs created the iPhone
+          Our team leader Artem Usmanov created this for you. How Steve Jobs created the iPhone
         </p>
         <div class="buttons-container">
           <div class="buttons">
@@ -30,13 +30,13 @@ import { RouterLink, RouterView } from 'vue-router';
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #1a1a2e;
-  color: white;
+  background-color: #9370db;
+  color: #3c3c6e;
   padding: 2rem;
 }
 
 .form-container {
-  background-color: #2c2c54;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -74,16 +74,25 @@ import { RouterLink, RouterView } from 'vue-router';
 }
 
 .btn-primary {
-  background-color: #3a3aa4;
-  color: white;
+  background-color: #9370db;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #c8a2c8;
 }
 
 .btn-secondary {
-  background-color: #7230b4;
-  color: white;
+  background-color: #f0f0f0;
+  color: #3c3c6e;
+}
+
+.btn-secondary:hover {
+  background-color: #e0e0e0;
 }
 
 .footer {
   font-size: 0.8rem;
+  color: #3c3c6e;
 }
 </style>

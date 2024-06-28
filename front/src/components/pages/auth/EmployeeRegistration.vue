@@ -111,11 +111,11 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #1a1a2e;
+  background-color: #9370db;
 }
 
 .form-container {
-  background-color: #2c2c54;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -127,8 +127,8 @@ export default {
   padding: 0.6em 0.6em;
   border: 1px solid #4b4b7a;
   border-radius: 4px;
-  background-color: #3c3c6e;
-  color: #c8c8c8;
+  background-color: #f0f0f0;
+  color: #3c3c6e;
   font-size: 0.9rem;
   appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
@@ -153,8 +153,8 @@ export default {
 }
 
 .user-type-buttons button {
-  background-color: #4b4b7a;
-  color: #c8c8c8;
+  background-color: #f0f0f0;
+  color: #3c3c6e;
   border: none;
   padding: 0.6em 1.2em;
   font-size: 0.9rem;
@@ -182,7 +182,7 @@ export default {
 .form-group label {
   display: block;
   font-weight: 500;
-  color: #c8c8c8;
+  color: #3c3c6e;
   margin-bottom: 0.4rem;
   font-size: 0.9rem;
 }
@@ -192,8 +192,8 @@ export default {
   padding: 0.6em 0.6em;
   border: 1px solid #4b4b7a;
   border-radius: 4px;
-  background-color: #3c3c6e;
-  color: #c8c8c8;
+  background-color: #f0f0f0;
+  color: #3c3c6e;
   font-size: 0.9rem;
 }
 
@@ -218,7 +218,7 @@ export default {
 .login-link {
   text-align: center;
   margin-top: 1rem;
-  color: #c8c8c8;
+  color: #3c3c6e;
   font-size: 0.9rem;
 }
 
