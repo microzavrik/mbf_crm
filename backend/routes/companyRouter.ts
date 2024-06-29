@@ -6,9 +6,9 @@ const router = express.Router();
 
 router.post('/companies', async (req: Request, res: Response) => {
   try {
-    const { company_name, owner } = req.body;
-    const newCompany = await createCompany({ company_name, owner });
-    res.status(201).json(newCompany);
+    // const { username, activityType, company_name, owner } = req.body;
+    // const newCompany = await createCompany({ username, company_name, owner, activityType });
+    // res.status(201).json(newCompany);
   } catch (error) {
     res.status(500).json({ error: 'Error creating company' });
   }

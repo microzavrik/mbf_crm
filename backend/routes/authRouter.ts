@@ -5,21 +5,20 @@ import { RequestWithUser } from "../types/types";
 
 const router = express.Router();
 
-
 router.post("/register", async(req: Request, res: Response) => {
     try {
-        const { username, email, password } = req.body;
-        const user = await registerUser(username, email, password);
-        if(user) {
-            res.status(201).json({message: "User registered sucessfully", user});
-        } 
-        else {
-            res.status(400).json({message: "Registration failed"});
-        }
-    }
-    catch(error) {
-        console.error("Error registering user", error);
-        res.status(500).json({message: "Internal server error"});
+      const { username, email, password } = req.body;
+      await registerUser(username, email, password);
+      const result = await authenticateUser(username, password);
+      if (result?.user) {
+        res.status(201).json({ message: `User registered successfully\nToken: ${result.token}\n
+            User: ${result.user}`, user: result.user, token: result.token });
+      } else {
+        res.status(400).json({ message: "Registration failed" });
+      }
+    } catch (error) {
+      console.error("Error registering user", error);
+      res.status(500).json({ message: "Internal server error" });
     }
 });
 
@@ -28,7 +27,8 @@ router.post("/login", async (req: Request, res: Response) => {
         const { username, password } = req.body;
         const result = await authenticateUser(username, password);
         if (result?.user) {
-            res.status(200).json({ message: "Login successful", user: result.user, token: result.token });
+            res.status(200).json({ message: `Login successfully\nToken: ${result.token}\n
+                User: ${result.user}`, user: result.user, token: result.token });
         } else {
             res.status(401).json({ message: "Invalid username or password" });
         }

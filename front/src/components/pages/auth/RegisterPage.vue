@@ -1,21 +1,35 @@
 <script setup>
 import axios from 'axios';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const handleSubmit = (e) => {
   const form = new FormData(e.target);
   const formProps = Object.fromEntries(form.entries());
-  
-  if(formProps.password !== formProps.repeatPassword) {
+
+  if (formProps.password !== formProps.repeatPassword) {
     alert('Passwords do not match');
     return;
   }
   formProps.repeatPassword = undefined;
   console.log(formProps);
+
   axios.post('/api/auth/register', formProps)
-  .then(res => {
-    console.log(res.data);
-  })
-}
+    .then(res => {
+      const { user, token } = res.data;
+
+      localStorage.setItem('username', user.username);
+      localStorage.setItem('token', token);
+
+      console.log(res.data);
+      
+      router.push('/employee_register');
+    })
+    .catch(error => {
+      console.error(error);
+    });
+};
 </script>
 
 <template>

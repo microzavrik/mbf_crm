@@ -65,9 +65,14 @@
 
 <script>
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 
 export default {
   name: 'EmployeeRegistration',
+  setup() {
+    const router = useRouter();
+    return { router };
+  },
   data() {
     return {
       position: 'employee',
@@ -82,11 +87,10 @@ export default {
   methods: {
     submitForm() {
       const formData = {
+        username: localStorage.getItem("username"),
         position: this.position,
-        full_name: this.full_name,
-        company: this.company,
-        surname: this.surname,
-        companyName: this.companyName,
+        company: this.companyName,
+        full_name: this.surname,
         activityType: this.activityType,
         staffCount: this.staffCount
       };
@@ -95,6 +99,7 @@ export default {
         .then(response => {
           console.log('Form submitted successfully:', response.data);
           // Дополнительная логика после успешной отправки формы
+          this.router.push('/panel');
         })
         .catch(error => {
           console.error('Error submitting form:', error);

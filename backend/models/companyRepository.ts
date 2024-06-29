@@ -5,12 +5,12 @@ import { QueryResult } from "pg";
 export async function createCompany(company: Company) : Promise<Company> {
     try {
         const query = `
-        INSERT INTO companies (company_name, owner)
-        VALUES ($1, $2)
+        INSERT INTO companies (username, company_name, owner, activity_type)
+        VALUES ($1, $2, $3, $4)
         RETURNING *
         `;
 
-        const values = [company.company_name, company.owner];
+        const values = [company.username, company.company, company.owner, company.activityType];
         const result: QueryResult<Company> = await client.query(query, values);
         return result.rows[0];
     }

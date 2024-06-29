@@ -5,12 +5,12 @@ import { Employee } from "./employee";
 export async function createEmplyoee(employee: Employee) : Promise<Employee> {
     try {
         const query = `
-        INSERT INTO employees (full_name, company, position)
-        VALUES ($1, $2, $3)
+        INSERT INTO employees (username, full_name, company, position)
+        VALUES ($1, $2, $3, $4)
         RETURNING *
         `;
 
-        const values = [employee.full_name, employee.company, employee.position];
+        const values = [employee.username, employee.full_name, employee.company, employee.position];
         const result: QueryResult<Employee> = await client.query(query, values);
         return result.rows[0];
     }

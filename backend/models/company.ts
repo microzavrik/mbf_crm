@@ -1,5 +1,7 @@
 export interface Company {
     id?: number,
-    company_name: string,
-    owner: string;
+    username: string,
+    company: string,
+    owner: string,
+    activityType: string
 };

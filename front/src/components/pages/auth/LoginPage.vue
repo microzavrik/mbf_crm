@@ -17,8 +17,9 @@ const handleLogin = (e) => {
       const { user, token } = response.data;
       // Сохраняем пользователя и токен в localStorage
       localStorage.setItem('userid', user.id);
-      console.log(user);
       localStorage.setItem('token', token);
+
+      console.log( response.data);
     })
     .catch(error => {
       console.error('Error logging in:', error);

@@ -1,9 +1,16 @@
 <script setup>
+import { useRouter } from 'vue-router';
 import orderIcon from '../../../assets/order_icon.png';
 import usersIcon from '../../../assets/users.webp';
 import productIcon from '../../../assets/product.webp';
-import siteIcon from '../../../assets/site.png';
 import settingIcon from '../../../assets/settings.png';
+
+const router = useRouter();
+
+const token = localStorage.getItem('token');
+if (!token) {
+    router.push('/error');
+}
 </script>
 
 <template>
