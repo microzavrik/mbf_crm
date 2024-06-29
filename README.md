@@ -1,4 +1,4 @@
-![Image alt](https://github.com/sxaxq/mbf_crm/raw/master/assets/logo.jpg)
+![Image alt](https://github.com/microzavrik/mbf_crm/raw/master/assets/logo.jpg)
 
 ## CRM MBF - Powerful Open-Source CRM Solution 🚀
 CRM MBF is an innovative, open-source Customer Relationship Management (CRM) system that empowers businesses of all sizes to streamline their operations and enhance customer engagement. Developed with the latest technologies, CRM MBF offers a comprehensive suite of features to help you manage your customer data, automate workflows, and drive business growth.
