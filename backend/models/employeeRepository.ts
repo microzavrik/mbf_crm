@@ -85,3 +85,14 @@ export async function getEmployeesByCompany(company: string) : Promise<Employee[
         throw error;
     }
 };
+
+export async function getFullNameByUsername(username: string): Promise<string | null> {
+    try {
+      const query = "SELECT full_name FROM employees WHERE username = $1";
+      const result: QueryResult<{ full_name: string }> = await client.query(query, [username]);
+      return result.rows[0]?.full_name || null;
+    } catch (error) {
+      console.error("Error getting full name by username:", error);
+      throw error;
+    }
+};

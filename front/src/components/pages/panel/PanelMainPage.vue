@@ -1,12 +1,12 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import orderIcon from '../../../assets/order_icon.png';
 import usersIcon from '../../../assets/users.webp';
 import productIcon from '../../../assets/product.webp';
 import settingIcon from '../../../assets/settings.png';
 import homeIcon from '../../../assets/home.png';
-
 
 import UsersPage from './UsersPage.vue';
 import MainPage from './MainPage.vue';
@@ -16,12 +16,24 @@ import SettingsPage from './SettingsPage.vue';
 
 const router = useRouter();
 
-const isClicked = ref('');
+const isClicked = ref('main');
+const fullName = ref('');
 
 const token = localStorage.getItem('token');
 if (!token) {
     router.push('/error');
 }
+
+const username = localStorage.getItem('username');
+
+onMounted(async () => {
+  try {
+    const response = await axios.get(`/api/employees/username/${username}`);
+    fullName.value = response.data.fullName;
+  } catch (error) {
+    console.error('Error getting full name:', error);
+  }
+});
 
 function ButtonClicked(button) {
   isClicked.value = button;
@@ -43,7 +55,7 @@ function ButtonClicked(button) {
                 <div class="avatar-container">
                     <img src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611768.jpg?w=740&t=st=1719660478~exp=1719661078~hmac=1f25deff644344a10def05d83e4c503dea3e53fe26151e7c4b525a14761aeaf3" class="avatar">
                 </div>
-                <div class="name">Name Surname</div>
+                <div class="name">{{ fullName }}</div>
                 <div class="buttons-container">
                     <button class="button" @click="ButtonClicked('main')">
                         <img :src="homeIcon" class="icon" />

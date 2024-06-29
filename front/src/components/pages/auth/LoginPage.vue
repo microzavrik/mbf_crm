@@ -18,6 +18,7 @@ const handleLogin = (e) => {
       // Сохраняем пользователя и токен в localStorage
       localStorage.setItem('userid', user.id);
       localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
 
       console.log( response.data);
     })

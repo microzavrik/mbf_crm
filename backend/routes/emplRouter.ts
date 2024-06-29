@@ -5,7 +5,8 @@ import {
     getEmployeesByCompany,
     getAllEmployees,
     updateEmployee,
-    deleteEmployee } from "../models/employeeRepository"
+    deleteEmployee,
+    getFullNameByUsername } from "../models/employeeRepository"
 import { Employee } from "../models/employee"
 import { create } from "domain";
 import { createCompany } from "../models/companyRepository";
@@ -96,6 +97,20 @@ router.put('/employees/:id', async (req: Request, res: Response) => {
     } 
     catch (error) {
       res.status(500).json({ error: 'Error getting employees by company' });
+    }
+  });
+
+router.get('/employees/username/:username', async (req: Request, res: Response) => {
+    try {
+      const { username } = req.params;
+      const fullName = await getFullNameByUsername(username);
+      if (fullName) {
+        res.json({ fullName });
+      } else {
+        res.status(404).json({ error: 'Employee not found' });
+      }
+    } catch (error) {
+      res.status(500).json({ error: 'Error getting employee full name' });
     }
   });
   
