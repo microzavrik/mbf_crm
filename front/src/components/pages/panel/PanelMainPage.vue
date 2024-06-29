@@ -28,7 +28,7 @@ const username = localStorage.getItem('username');
 
 onMounted(async () => {
   try {
-    const response = await axios.get(`/api/employees/username/${username}`);
+    const response = await axios.get(`/api/empl/employees/username/${username}`);
     fullName.value = response.data.fullName;
   } catch (error) {
     console.error('Error getting full name:', error);

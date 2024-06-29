@@ -103,7 +103,9 @@ router.put('/employees/:id', async (req: Request, res: Response) => {
 router.get('/employees/username/:username', async (req: Request, res: Response) => {
     try {
       const { username } = req.params;
+      console.log(username);
       const fullName = await getFullNameByUsername(username);
+      console.log(fullName);
       if (fullName) {
         res.json({ fullName });
       } else {
