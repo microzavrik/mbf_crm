@@ -1,15 +1,22 @@
 <script setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import orderIcon from '../../../assets/order_icon.png';
 import usersIcon from '../../../assets/users.webp';
 import productIcon from '../../../assets/product.webp';
 import settingIcon from '../../../assets/settings.png';
+import UsersPage from './UsersPage.vue';
 
 const router = useRouter();
+const isClicked = ref('');
 
 const token = localStorage.getItem('token');
 if (!token) {
     router.push('/error');
+}
+
+function ButtonClicked(button) {
+  isClicked.value = button;
 }
 </script>
 
@@ -30,26 +37,27 @@ if (!token) {
                 </div>
                 <div class="name">Name Surname</div>
                 <div class="buttons-container">
-                    <a href="https://example.com/orders" class="button">
+                    <button class="button">
                         <img :src="orderIcon" class="icon" />
                         Orders
-                    </a>
-                    <a href="https://example.com/users" class="button">
-                        <img :src="usersIcon" class="icon" />
-                        Users
-                    </a>
-                    <a href="https://example.com/products" class="button">
+                    </button>
+                   <button class="button" @click="ButtonClicked('users')">
+                    <img :src="usersIcon" class="icon" />
+                    Users
+                    </button>
+                    <button class="button">
                         <img :src="productIcon" class="icon" />
                         Products
-                    </a>
-                    <a href="https://example.com/settings" class="button">
+                    </button>
+                    <button class="button">
                         <img :src="settingIcon" class="icon" />
                         Setting
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="separator"></div>
             <div class="content">
+            <UsersPage class="content-wrapper" v-if="isClicked === 'users'"></UsersPage>
             </div>
         </div>
     </div>
@@ -138,7 +146,7 @@ if (!token) {
         font-size: 0.9rem;
         cursor: pointer;
         margin-bottom: 0.5rem;
-        width: 150px;
+        width: 190px;
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -165,4 +173,9 @@ if (!token) {
         padding: 2rem;
         background-color: white;
     }
+    .content-wrapper {
+        flex-grow: 1;
+        padding: 2rem;
+        background-color: white;
+      }
 </style>
