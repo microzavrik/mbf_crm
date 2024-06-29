@@ -5,9 +5,17 @@ import orderIcon from '../../../assets/order_icon.png';
 import usersIcon from '../../../assets/users.webp';
 import productIcon from '../../../assets/product.webp';
 import settingIcon from '../../../assets/settings.png';
+import homeIcon from '../../../assets/home.png';
+
+
 import UsersPage from './UsersPage.vue';
+import MainPage from './MainPage.vue';
+import OrdersPage from './OrdersPage.vue';
+import ProductsPage from './ProductsPage.vue';
+import SettingsPage from './SettingsPage.vue';
 
 const router = useRouter();
+
 const isClicked = ref('');
 
 const token = localStorage.getItem('token');
@@ -37,7 +45,11 @@ function ButtonClicked(button) {
                 </div>
                 <div class="name">Name Surname</div>
                 <div class="buttons-container">
-                    <button class="button">
+                    <button class="button" @click="ButtonClicked('main')">
+                        <img :src="homeIcon" class="icon" />
+                        Main
+                    </button>
+                    <button class="button" @click="ButtonClicked('orders')">
                         <img :src="orderIcon" class="icon" />
                         Orders
                     </button>
@@ -45,11 +57,11 @@ function ButtonClicked(button) {
                     <img :src="usersIcon" class="icon" />
                     Users
                     </button>
-                    <button class="button">
+                    <button class="button" @click="ButtonClicked('products')">
                         <img :src="productIcon" class="icon" />
                         Products
                     </button>
-                    <button class="button">
+                    <button class="button" @click="ButtonClicked('settings')">
                         <img :src="settingIcon" class="icon" />
                         Setting
                     </button>
@@ -58,6 +70,10 @@ function ButtonClicked(button) {
             <div class="separator"></div>
             <div class="content">
             <UsersPage class="content-wrapper" v-if="isClicked === 'users'"></UsersPage>
+            <MainPage class="content-wrapper" v-if="isClicked === 'main'"></MainPage>
+            <OrdersPage class="content-wrapper" v-if="isClicked === 'orders'"></OrdersPage>
+            <SettingsPage class="content-wrapper" v-if="isClicked === 'settings'"></SettingsPage>
+            <ProductsPage class="content-wrapper" v-if="isClicked === 'products'"></ProductsPage>
             </div>
         </div>
     </div>
