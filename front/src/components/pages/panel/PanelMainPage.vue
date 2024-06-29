@@ -26,7 +26,7 @@ if (!token) {
         <div class="main-content">
             <div class="left-panel">
                 <div class="avatar-container">
-                    <img src="../../../assets/video.gif" class="avatar">
+                    <img src="https://img.freepik.com/free-psd/3d-render-avatar-character_23-2150611768.jpg?w=740&t=st=1719660478~exp=1719661078~hmac=1f25deff644344a10def05d83e4c503dea3e53fe26151e7c4b525a14761aeaf3" class="avatar">
                 </div>
                 <div class="name">Name Surname</div>
                 <div class="buttons-container">
